@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Bird - Enter Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #87CEEB;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+        .background-img {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        .container {
+            background: rgb(113, 113, 113); /* Semi-transparent */
+            padding: 30px;
+            background: transparent;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            width: 300px;
+        }
+        input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            font-size: 18px;
+            margin: 10px 0;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            text-align: center;
+        }
+        input[type="number"] {
+            min: 1;
+            step: 1;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: green;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: darkgreen;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Image -->
+    <img src="image/fpage.jpg" alt="Background" class="background-img">
+
+
+    <div class="container">
+        <h2>Enter Your Details</h2>
+        <h4>To start the game</h4>
+        <input type="text" id="name" placeholder="Enter your name" required>
+        <input type="number" id="age" placeholder="Enter your age" min="1" step="1" required>
+        <button onclick="saveUserData()">Submit</button>
+    </div>
+
+    <script>
+        function saveUserData() {
+            const nameInput = document.getElementById('name');
+            const ageInput = document.getElementById('age');
+    
+            const name = nameInput.value.trim();
+            const age = ageInput.value.trim();
+    
+            // Reset styles
+            nameInput.style.border = "1px solid #ccc";
+            ageInput.style.border = "1px solid #ccc";
+            ageInput.style.backgroundColor = "rgba(255, 255, 255, 0.5)";
+    
+            if (!name) {
+                alert('Please enter your name.');
+                nameInput.style.border = "2px solid yellow";
+                return;
+            }
+    
+            if (!age || isNaN(age) || Number(age) <= 0) {
+                alert('Please enter a valid age.');
+                ageInput.style.border = "2px solid yellow";
+                ageInput.style.backgroundColor = "rgba(255, 255, 0, 0.3)"; // Light yellow background
+                return;
+            }
+    
+            localStorage.setItem('userData', JSON.stringify({ name, age: Number(age) }));
+            alert('Data Saved! Redirecting to Main Menu...');
+            window.location.href = 'main_menu.html';
+        }
+    </script>
+
+</body>
+</html>

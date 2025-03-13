@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Over</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: black;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        #game-over-container {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px white;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin: 10px 0;
+        }
+
+        p {
+            font-size: 1.5rem;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background: white;
+            color: black;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: red;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-over-container">
+        <h1>Game Over</h1>
+        <p>Your Score: <span id="final-score">0</span></p>
+        <button onclick="restartGame()">Restart</button>
+        <button onclick="goToMainMenu()">Main Menu</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let lastScore = localStorage.getItem("lastScore") || 0;
+            document.getElementById("final-score").innerText = lastScore;
+        });
+
+        function restartGame() {
+            window.location.href = "game.html";
+        }
+
+        function goToMainMenu() {
+            window.location.href = "main_menu.html";  // Change this if your main menu has a different filename
+        }
+    </script>
+</body>
+</html>

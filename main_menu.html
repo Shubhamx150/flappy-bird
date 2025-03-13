@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Bird - Main Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background:url(image/Fig.gif);
+            background-size: cover, cover;
+            background-blend-mode: overlay;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            animation: backgroundAnimation 10s linear infinite alternate;
+        }
+        
+        @keyframes backgroundAnimation {
+            0% { background-position: 0% 0%, 100% 100%; }
+            100% { background-position: 100% 0%, 0% 100%; }
+        }
+        
+        .menu-container {
+            background: rgba(113, 113, 113, 0);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            width: 350px;
+            border: 2px solid rgba(0, 0, 0, 0);
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            color: rgb(3, 0, 0);
+            font-weight: bold;
+        }
+        #playBtn { background-color: rgb(53, 133, 13); }
+        #exitBtn { background-color: red; }
+        .difficulty {
+            background-color: rgb(229, 130, 242);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+        }
+        #modeContainer {
+            margin-bottom: 10px;
+            display: none;
+            background: rgb(113, 113, 113);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        #modeSelection {
+            background-color: orange;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        .checkmark {
+            visibility: hidden;
+        }
+        .selected .checkmark {
+            visibility: visible;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-container">
+        <h1 id="playerName">Welcome!</h1>
+        <button id="modeSelection" onclick="toggleModeSelection()">Select Mode</button>
+        <div id="modeContainer">
+            <button class="difficulty" onclick="setDifficulty('Easy', this)">Easy <span class="checkmark">✔</span></button>
+            <button class="difficulty" onclick="setDifficulty('Normal', this)">Normal <span class="checkmark">✔</span></button>
+            <button class="difficulty" onclick="setDifficulty('Hard', this)">Hard <span class="checkmark">✔</span></button>
+            <button class="difficulty" onclick="setDifficulty('Extreme', this)">Extreme <span class="checkmark">✔</span></button>
+            <button class="difficulty" onclick="setDifficulty('Impossible', this)">Impossible <span class="checkmark">✔</span></button>
+            <button onclick="closeModeSelection()">OK</button>
+        </div>
+        <button id="playBtn" onclick="startGame()">Play</button>
+        <button id="exitBtn" onclick="exitGame()">Exit</button>
+    </div>
+
+    <script>
+        function loadPlayerData() {
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            if (userData && userData.name) {
+                document.getElementById('playerName').textContent = `Welcome, ${userData.name}!`;
+            }
+        }
+
+        function startGame() {
+            alert('Starting game...');
+            window.location.href = 'game.html';
+        }
+
+        function setDifficulty(level, element) {
+            alert(`Difficulty set to: ${level}`);
+            localStorage.setItem('difficulty', level);
+            document.querySelectorAll('.difficulty').forEach(btn => btn.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        function toggleModeSelection() {
+            document.getElementById('modeContainer').style.display = 'block';
+        }
+
+        function closeModeSelection() {
+            document.getElementById('modeContainer').style.display = 'none';
+        }
+
+        function exitGame() {
+            alert('Exiting game...');
+            window.close();
+        }
+
+        window.onload = loadPlayerData;
+    </script>
+</body>
+</html>
